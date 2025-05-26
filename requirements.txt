@@ -14,3 +14,23 @@ flask_cors
 requests
 docxtpl
 psycopg2-binary
+
+# Environment variable management
+python-dotenv==1.0.0
+
+# AWS S3 interaction
+boto3==1.28.60
+
+# Web scraping (Selenium) and browser driver management
+selenium==4.11.2
+webdriver-manager==4.0.0 # For automatic browser driver downloads (e.g., geckodriver for Firefox)
+# If you uncomment and use BeautifulSoup4 for parsing scraped HTML, add:
+beautifulsoup4==4.12.2
+
+# Database drivers
+# SQLite is built-in, so no explicit driver is usually needed.
+# If you switch to PostgreSQL, uncomment and install:
+# psycopg2-binary==2.9.9
+# If you switch to MySQL, uncomment and install:
+# mysql-connector-python==8.1.0 # Or PyMySQL
+
