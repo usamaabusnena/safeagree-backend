@@ -164,7 +164,7 @@ class Communicator:
 
         if existing_policy:
             # update processing date if it exists
-            existing_policy.processing_date = datetime.now()
+            existing_policy.processing_date = datetime.datetime.now()
             # Policy already processed, retrieve from S3
             print(f"Policy with hash {policy_hash} found in history. Retrieving summary from S3.")
             summary_data = self.fb_manager.get_json_from_s3(existing_policy.result_file_name)
@@ -190,7 +190,7 @@ class Communicator:
             policy_obj = self.db_manager.add_policy(
                 company_name=company_name,
                 original_link=original_link if input_type == 'link' else None,
-                processing_date=datetime.now(),
+                processing_date=datetime.datetime.now(),
                 policy_hash=policy_hash,
                 result_file_name=s3_file_name
             )

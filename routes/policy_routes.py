@@ -39,7 +39,7 @@ def summarize_policy():
     Expects 'policy_input' (URL or file content) and 'input_type' ('link' or 'file').
     """
     input_type = request.form.get("input_type") # Use form for file uploads
-    processing_date = datetime.now()
+    processing_date = datetime.datetime.now()
     policy_input = None
     if input_type == 'link':
         policy_input = request.form.get("policy_link")
