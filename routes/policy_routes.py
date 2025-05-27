@@ -77,11 +77,13 @@ def summarize_policy():
         # find the company name from the file name
         base_name = os.path.splitext(file.filename)[0]
         company_name = re.sub(r'(_|\s)?(privacy|policy|terms|conditions|agreement)(_|\s)?', '', base_name, flags=re.IGNORECASE).strip()
+        if company_name == '':
+            company_name = "Unknown Company"
     else:
         return jsonify({"message": "Invalid 'input_type'. Must be 'link' or 'file'."}), 400
 
     policy_obj, summary_data = communicator_instance.process_policy(
-        user_id, policy_input, input_type, company_name, processing_date, file_extension if input_type == 'file' else None
+        policy_input, input_type, company_name, processing_date, file_extension if input_type == 'file' else None
     )
 
     if policy_obj and summary_data:

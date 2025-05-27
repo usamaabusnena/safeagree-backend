@@ -124,11 +124,10 @@ class Communicator:
             "overall_sentiment": "Neutral with potential privacy concerns."
         }
 
-    def process_policy(self, user_id, policy_input, input_type, company_name, file_extension=None):
+    def process_policy(self, policy_input, input_type, company_name, file_extension=None):
         """
         Main function to process a privacy policy.
         Handles history check, AI summarization, and storage.
-        :param user_id: ID of the user initiating the request.
         :param policy_input: URL (if input_type='link') or file content (if input_type='file').
         :param input_type: 'link' or 'file'.
         :param company_name: Optional company name for the policy.
@@ -197,9 +196,6 @@ class Communicator:
             )
             if not policy_obj:
                 return None, "Failed to save policy metadata to database."
-
-        # Automatically add to user's history/library
-        self.db_manager.add_user_policy(user_id, policy_obj.id)
 
         return policy_obj, summary_data
 
