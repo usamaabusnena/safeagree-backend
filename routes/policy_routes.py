@@ -210,7 +210,7 @@ def export_library():
     return export_content, 200, {'Content-Disposition': 'attachment; filename=safeagree_library.txt'}
 '''
 
-@policy_bp.route("/<int:policy_id_1>vs<int:policy_id_2", methods=["GET"])
+@policy_bp.route("/<int:policy_id_1>vs<int:policy_id_2>", methods=["GET"])
 def compare_policies(policy_id_1, policy_id_2):
     """
     Endpoint to retrieve full details of a specific policy by its ID.
