@@ -11,8 +11,6 @@ import os
 import json # For parsing JSON from S3, if needed directly
 import datetime
 from urllib.parse import urlparse
-# Import the blueprint defined in __init__.py
-from routes import policy_bp
 # We'll need to pass the communicator instance to these routes from app.py
 from flask import Blueprint
 policy_bp = Blueprint('policy', __name__, url_prefix='/policy')

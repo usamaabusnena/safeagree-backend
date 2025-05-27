@@ -12,9 +12,6 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 # --- User Account Management Endpoints ---
 
-
-# Import the blueprint defined in __init__.py
-from routes import auth_bp
 # We'll need to pass the db_manager instance to these routes from app.py
 db_manager_instance = None # This will be set by app.py
 
