@@ -38,7 +38,6 @@ def summarize_policy():
     Endpoint to summarize a privacy policy from a link or uploaded file.
     Expects 'policy_input' (URL or file content) and 'input_type' ('link' or 'file').
     """
-    user_id = get_jwt_identity()
     input_type = request.form.get("input_type") # Use form for file uploads
     processing_date = datetime.now()
     policy_input = None
