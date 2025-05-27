@@ -33,7 +33,6 @@ def set_policy_managers(db_manager, filebase_manager):
 # --- Policy Summarization and Library Management Endpoints ---
 
 @policy_bp.route("/summarize", methods=["POST"])
-@jwt_required()
 def summarize_policy():
     """
     Endpoint to summarize a privacy policy from a link or uploaded file.
