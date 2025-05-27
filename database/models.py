@@ -55,7 +55,7 @@ class Policy(Base):
     company_name = Column(String(255), nullable=False) # Company name associated with the policy
     policy_hash = Column(String(64), unique=True, nullable=False) # FNV1-a hash of the policy text
     result_file_name = Column(String(255), nullable=False) # Name/key of the JSON file in S3
-    processing_date = Column(DateTime, default=datetime.datetime.now(), nullable=False) # Date/time of processing
+    processing_date = Column(DateTime, default=datetime.now(), nullable=False) # Date/time of processing
     original_link = Column(String(512), nullable=True) # Original URL of the policy if applicable
     # Relationship to UserPolicy table
     user_policies = relationship("UserPolicy", back_populates="policy", cascade="all, delete-orphan")
