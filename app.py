@@ -16,7 +16,8 @@ from services.scraper_service import ScraperService
 from services.communicator import Communicator
 
 # Import blueprints for routes
-from routes import auth_bp, policy_bp
+from routes.auth_routes import auth_bp
+from routes.policy_routes import policy_bp
 from routes.auth_routes import set_auth_db_manager # Import setter function
 from routes.policy_routes import set_policy_communicator, set_policy_managers # Import setter function for communicator and managers
 # Import configuration

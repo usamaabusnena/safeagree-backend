@@ -6,6 +6,9 @@ from flask_jwt_extended import create_access_token, create_refresh_token, jwt_re
 from werkzeug.security import generate_password_hash, check_password_hash
 from utils.form_validator import validate_request_data
 from utils.error import Error, ErrorType
+from flask import Blueprint
+
+auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 # --- User Account Management Endpoints ---
 

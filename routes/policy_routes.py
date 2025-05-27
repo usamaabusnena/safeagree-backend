@@ -14,6 +14,9 @@ from urllib.parse import urlparse
 # Import the blueprint defined in __init__.py
 from routes import policy_bp
 # We'll need to pass the communicator instance to these routes from app.py
+from flask import Blueprint
+policy_bp = Blueprint('policy', __name__, url_prefix='/policy')
+
 
 communicator_instance = None # This will be set by app.py
 db_manager_instance = None # This will be set by app.py
