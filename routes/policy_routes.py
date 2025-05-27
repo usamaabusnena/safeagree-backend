@@ -209,3 +209,36 @@ def export_library():
     # Flask will automatically set Content-Type to text/plain and handle download
     return export_content, 200, {'Content-Disposition': 'attachment; filename=safeagree_library.txt'}
 '''
+
+@policy_bp.route("/<int:policy_id_1>vs<int:policy_id_2", methods=["GET"])
+def compare_policies(policy_id_1, policy_id_2):
+    """
+    Endpoint to retrieve full details of a specific policy by its ID.
+    This endpoint is used by PolicyDetail.tsx and ComparePolicies.tsx.
+    """
+
+    policy_1 = db_manager_instance.get_policy_by_id(policy_id_1)
+    policy_2 = db_manager_instance.get_policy_by_id(policy_id_2)
+    if not policy_1 or not policy_2:
+        return jsonify({"message": "One or both policies not found."}), 404
+    summary_data_1 = filebase_manager_instance.get_json_from_s3(policy_1.result_file_name)
+    summary_data_2 = filebase_manager_instance.get_json_from_s3(policy_2.result_file_name)
+    if not summary_data_1 or not summary_data_2:
+        return jsonify({"message": "Summary data not found for one or both policies."}), 422
+    # Return both policies' details
+    return jsonify({
+        "policy_1": {
+            "id": policy_1.id,
+            "company_name": policy_1.company_name,
+            "original_link": policy_1.original_link if policy_1.original_link else None,
+            "summary": summary_data_1,
+            "processing_date": policy_1.processing_date
+        },
+        "policy_2": {
+            "id": policy_2.id,
+            "company_name": policy_2.company_name,''
+            'original_link': policy_2.original_link if policy_2.original_link else None,
+            "summary": summary_data_2,
+            "processing_date": policy_2.processing_date
+        }
+    }), 200
