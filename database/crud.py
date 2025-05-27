@@ -215,6 +215,12 @@ class DatabaseManager:
 
     def get_all_policies(self):
         """Retrieves all policies that have been processed."""
-        with self.app.app_context():
+        session = self.Session()
+        try:
             # Order by evaluation date in descending order for most recent first
-            return Policy.query.order_by(Policy.processing_date.desc()).all()
+            return session.query(Policy).order_by(Policy.processing_date.desc()).all()
+        except SQLAlchemyError as e:
+            print(f"Error getting all policies: {e}")
+            return []
+        finally:
+            session.close()

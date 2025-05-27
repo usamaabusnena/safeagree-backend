@@ -3,7 +3,6 @@
 
 from flask import request, jsonify
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
-from werkzeug.security import generate_password_hash, check_password_hash
 from utils.form_validator import validate_request_data
 from utils.error import Error, ErrorType
 from flask import Blueprint
@@ -45,7 +44,8 @@ def register_user():
             return jsonify({"message": "User registered successfully"}), 201
         
     except Exception as e:
-        return jsonify({"message": "User registration failed"}), 500
+        # Log the exception for debugging purposes
+        return jsonify({"message": f"User registration failed: {str(e)}"}), 500
 
 @auth_bp.route("/login", methods=["POST"])
 def login_user():
@@ -64,14 +64,15 @@ def login_user():
 
     user = db_manager_instance.get_user_by_email(email)
     if user and user.check_password(password):
-        access_token = create_access_token(identity=user.id)
-        refresh_token = create_refresh_token(identity=user.id)  # Optional refresh token
+        access_token = create_access_token(identity=str(user.id))
+        refresh_token = create_refresh_token(identity=str(user.id))  # Optional refresh token
         return jsonify(access_token=access_token,
                        refresh_token=refresh_token,
                         user_id=user.id), 200
     return jsonify({"message": "Invalid credentials"}), 401
 
 @auth_bp.route("/refresh", methods=["POST"])
+@jwt_required(refresh=True)
 def refresh_token_controller():
     """Endpoint to refresh JWT access token."""
     identity = get_jwt_identity()
